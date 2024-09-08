@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -6,7 +6,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   templateUrl: './recherche.component.html',
   styleUrls: ['./recherche.component.css']
 })
-export class RechercheComponent {
+export class RechercheComponent implements OnInit {
   rechercheForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     isInstalled: new FormControl(false),
@@ -14,4 +14,10 @@ export class RechercheComponent {
     idReturning: new FormControl(false)
   })
   protected readonly JSON = JSON;
+
+  ngOnInit(): void {
+    this.rechercheForm.valueChanges.subscribe({
+      next: value => console.log(value)
+    });
+  }
 }
