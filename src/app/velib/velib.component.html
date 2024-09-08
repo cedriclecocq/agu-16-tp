@@ -1,4 +1,4 @@
 <p>velib works!</p>
-<app-recherche></app-recherche>
-<app-liste></app-liste>
+<app-recherche (values)=handleCriteres($event)></app-recherche>
+<app-liste [criteres]="currentCriteres"></app-liste>
 <app-detail></app-detail>
