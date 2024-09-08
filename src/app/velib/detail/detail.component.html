@@ -1,0 +1,10 @@
+<h2>Détail de la station :</h2>
+<p>
+  {{station.name}}
+  {{station.isInstalled ? '🟩' : '🟥'}}
+  {{station.isRenting ? '⬆️' : ''}}
+  {{station.isReturning ? '⬇️' : ''}}
+</p>
+<p>Localisation : ({{station.lat}}, {{station.lon}})</p>
+<p>Capacité : {{station.capacity}} ({{station.numBikesAvailable}} disponibles
+  dont {{station.numMechanicalBikesAvailable}} mécaniques et {{station.numEbikeBikesAvailable}} électriques)</p>

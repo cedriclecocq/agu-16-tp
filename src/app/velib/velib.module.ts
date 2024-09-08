@@ -1,10 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { VelibComponent } from './velib.component';
+import { RechercheComponent } from './recherche/recherche.component';
+import { ListeComponent } from './liste/liste.component';
+import { DetailComponent } from './detail/detail.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    VelibComponent,
+    RechercheComponent,
+    ListeComponent,
+    DetailComponent
+  ],
+  exports: [
+    VelibComponent
+  ],
   imports: [
     CommonModule
   ]
