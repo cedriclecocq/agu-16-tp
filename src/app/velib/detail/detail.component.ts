@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Station} from "../station.type";
+import { Station } from "../station.type";
 
 @Component({
   selector: 'app-detail',

@@ -1,9 +1,10 @@
 <h2>Détail de la station :</h2>
 <p>
   {{station.name}}
-  {{station.isInstalled ? '🟩' : '🟥'}}
-  {{station.isRenting ? '⬆️' : ''}}
-  {{station.isReturning ? '⬇️' : ''}}
+  <img src="assets/ok.png" *ngIf="station.isInstalled" title="Installé">
+  <img src="assets/en-cours.png" *ngIf="!station.isInstalled" title="En cours d'installation">
+  <img src="assets/fleche-bas.png" *ngIf="station.isRenting" title="Location possible">
+  <img src="assets/fleche-haut.png" *ngIf="station.isReturning" title="Retour possible">
 </p>
 <p>Localisation : ({{station.lat}}, {{station.lon}})</p>
 <p>Capacité : {{station.capacity}} ({{station.numBikesAvailable}} disponibles

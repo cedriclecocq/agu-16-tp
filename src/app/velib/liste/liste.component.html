@@ -1,1 +1,20 @@
-<p>liste works!</p>
+<h2>Liste des stations :</h2>
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Installé</th>
+    <th>État</th>
+    <th>% disponible</th>
+  </tr>
+  <tr *ngFor="let station of stations">
+    <td>{{station.name}}</td>
+    <td>
+      <img src="assets/ok.png" *ngIf="station.isInstalled" title="Installé">
+      <img src="assets/en-cours.png" *ngIf="!station.isInstalled" title="En cours d'installation">
+    </td>
+    <td>
+      <img src="assets/fleche-bas.png" *ngIf="station.isRenting" title="Location possible">
+      <img src="assets/fleche-haut.png" *ngIf="station.isReturning" title="Retour possible">
+    </td>
+  </tr>
+</table>
