@@ -1,1 +1,16 @@
-<p>recherche works!</p>
+<h2>Recherche</h2>
+<form [formGroup]="rechercheForm">
+  <label for="name">Nom* : </label>
+  <input id="name" type="text" name="name" formControlName="name">
+
+  <input type="checkbox" id="isInstalled" name="isInstalled" formControlName="isInstalled">
+  <label for="isInstalled">Installé</label>
+
+  <input type="checkbox" id="isRenting" name="isRenting" formControlName="isRenting">
+  <label for="isRenting">Location possible</label>
+
+  <input type="checkbox" id="isReturning" name="isReturning" formControlName="idReturning">
+  <label for="isReturning">Retour possible</label>
+</form>
+{{JSON.stringify(rechercheForm.value)}}
+{{rechercheForm.valid}}
