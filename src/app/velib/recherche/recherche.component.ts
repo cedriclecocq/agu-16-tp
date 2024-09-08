@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { debounceTime, filter } from "rxjs";
 
 @Component({
   selector: 'app-recherche',
@@ -16,7 +17,10 @@ export class RechercheComponent implements OnInit {
   protected readonly JSON = JSON;
 
   ngOnInit(): void {
-    this.rechercheForm.valueChanges.subscribe({
+    this.rechercheForm.valueChanges.pipe(
+      filter(formValue => formValue.name?.length ? formValue.name.length >= 3 : false),
+      debounceTime(500)
+    ).subscribe({
       next: value => console.log(value)
     });
   }
