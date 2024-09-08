@@ -92,6 +92,9 @@
             "scripts": []
           }
         }
+      },
+      "i18n": {
+        "sourceLocale": "fr-FR"
       }
     }
   },
