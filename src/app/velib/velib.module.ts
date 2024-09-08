@@ -5,6 +5,7 @@ import { VelibComponent } from './velib.component';
 import { RechercheComponent } from './recherche/recherche.component';
 import { ListeComponent } from './liste/liste.component';
 import { DetailComponent } from './detail/detail.component';
+import { VelibService } from "./services/velib.service";
 
 
 
@@ -14,6 +15,9 @@ import { DetailComponent } from './detail/detail.component';
     RechercheComponent,
     ListeComponent,
     DetailComponent
+  ],
+  providers: [
+    VelibService
   ],
   exports: [
     VelibComponent

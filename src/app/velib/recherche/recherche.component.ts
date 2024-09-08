@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { debounceTime, filter } from "rxjs";
 import { RechercheValue } from "../recherche-value";
 
@@ -9,15 +9,19 @@ import { RechercheValue } from "../recherche-value";
   styleUrls: ['./recherche.component.css']
 })
 export class RechercheComponent implements OnInit {
-  rechercheForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    isInstalled: new FormControl(false),
-    isRenting: new FormControl(false),
-    idReturning: new FormControl(false)
-  })
+  rechercheForm;
   protected readonly JSON = JSON;
 
   values: EventEmitter<Partial<RechercheValue>> = new EventEmitter<Partial<RechercheValue>>();
+
+  constructor(private fb: FormBuilder) {
+    this.rechercheForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      isInstalled: [false, Validators.required],
+      isRenting: [false, Validators.required],
+      idReturning: [false, Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.rechercheForm.valueChanges.pipe(
