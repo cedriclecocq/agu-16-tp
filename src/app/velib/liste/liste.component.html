@@ -16,5 +16,8 @@
       <img src="assets/fleche-bas.png" *ngIf="station.isRenting" title="Location possible">
       <img src="assets/fleche-haut.png" *ngIf="station.isReturning" title="Retour possible">
     </td>
+    <td *ngIf="station.capacity > 0">
+      {{station.numBikesAvailable / station.capacity | percent:'1.2-2'}}
+    </td>
   </tr>
 </table>
