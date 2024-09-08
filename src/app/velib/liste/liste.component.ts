@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Station } from "../station.type";
 import { VelibService } from "../services/velib.service";
 import { RechercheValue } from "../recherche-value";
@@ -8,7 +8,7 @@ import { RechercheValue } from "../recherche-value";
   templateUrl: './liste.component.html',
   styleUrls: ['./liste.component.css']
 })
-export class ListeComponent {
+export class ListeComponent implements OnChanges {
   public stations: Station[];
 
   @Input()
@@ -18,5 +18,7 @@ export class ListeComponent {
     this.stations = this.velibService.getList();
   }
 
-  protected readonly JSON = JSON;
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes['criteres'].currentValue);
+  }
 }

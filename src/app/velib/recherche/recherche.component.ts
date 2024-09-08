@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { debounceTime, filter } from "rxjs";
+import { debounceTime, filter, Subscription } from "rxjs";
 import { RechercheValue } from "../recherche-value";
 
 @Component({
@@ -8,8 +8,9 @@ import { RechercheValue } from "../recherche-value";
   templateUrl: './recherche.component.html',
   styleUrls: ['./recherche.component.css']
 })
-export class RechercheComponent implements OnInit {
+export class RechercheComponent implements OnInit, OnDestroy {
   rechercheForm;
+  subscriptionRecherche: Subscription | undefined;
 
   @Output()
   values: EventEmitter<Partial<RechercheValue>> = new EventEmitter<Partial<RechercheValue>>();
@@ -24,11 +25,15 @@ export class RechercheComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rechercheForm.valueChanges.pipe(
+    this.subscriptionRecherche = this.rechercheForm.valueChanges.pipe(
       filter(formValue => formValue.name?.length ? formValue.name.length >= 3 : false),
       debounceTime(500)
     ).subscribe({
       next: value => this.values.emit(value)
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionRecherche?.unsubscribe();
   }
 }
