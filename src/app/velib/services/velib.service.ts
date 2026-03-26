@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Station} from "../station.type";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {combineLatest, map, Observable, throwError} from "rxjs";
+import {catchError, combineLatest, map, Observable, throwError} from "rxjs";
 import {StationsApi} from "./stations-api";
 import {StatusApi} from "./status-api";
 
@@ -42,23 +42,29 @@ export class VelibService {
     )
   }
 
-  getById(id: number): Station {
-    return {
-      "id": 17278902806,
-      "name": "Rouget de L'isle - Watteau",
-      "lat": 48.778192750803,
-      "lon": 2.3963020229163,
-      "capacity": 20,
-      "stationCode": "44015",
-      "numBikesAvailable": 12,
-      "numMechanicalBikesAvailable": 4,
-      "numEbikeBikesAvailable": 8,
-      "numDocksAvailable": 6,
-      "isInstalled": true,
-      "isReturning": true,
-      "isRenting": true,
-      "lastReported": 1699548492
-    };
+  getById(id: number): Observable<Station> {
+    return combineLatest({
+      stations: this.http.get<StationsApi>(`http://localhost:3000/velib-stations/${id}`),
+      status: this.http.get<StatusApi>(`http://localhost:3000/velib-status/${id}`)
+    }).pipe(
+      catchError(this.handleError),
+      map(value => ({
+        id: value.stations.id,
+        name: value.stations.name,
+        lat: value.stations.lat,
+        lon: value.stations.lon,
+        capacity: value.stations.capacity,
+        stationCode: value.stations.stationCode,
+        numBikesAvailable: value.status.numBikesAvailable,
+        numMechanicalBikesAvailable: value.status.num_bikes_available_types[0].mechanical,
+        numEbikeBikesAvailable: value.status.num_bikes_available_types[1].ebike,
+        numDocksAvailable: value.status.numDocksAvailable,
+        isInstalled: value.status.is_installed === 1,
+        isReturning: value.status.is_returning === 1,
+        isRenting: value.status.is_renting === 1,
+        lastReported: value.status.last_reported
+      }))
+    );
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

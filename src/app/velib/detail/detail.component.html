@@ -1,12 +1,18 @@
 <h2>Détail de la station :</h2>
-<p>
-  {{station.name}}
-  <img src="assets/ok.png" *ngIf="station.isInstalled" title="Installé">
-  <img src="assets/en-cours.png" *ngIf="!station.isInstalled" title="En cours d'installation">
-  <img src="assets/fleche-bas.png" *ngIf="station.isRenting" title="Location possible">
-  <img src="assets/fleche-haut.png" *ngIf="station.isReturning" title="Retour possible">
-</p>
-<p>Localisation : ({{station.lat}}, {{station.lon}})</p>
-<p>Capacité : {{station.capacity}} ({{station.numBikesAvailable}} disponibles
-  dont {{station.numMechanicalBikesAvailable}} mécaniques et {{station.numEbikeBikesAvailable}} électriques)</p>
-<p>Mise à jour : {{station.lastReported * 1000 | date:'medium'}}</p>
+<ng-container *ngIf="{station: station | async, error: error | async} as c">
+  <ng-container *ngIf="!c.error && c.station as station">
+    <p>{{station.name}}
+      <img src="assets/ok.png" *ngIf="station.isInstalled" title="Installé">
+      <img src="assets/en-cours.png" *ngIf="!station.isInstalled" title="En cours d'installation">
+      <img src="assets/fleche-bas.png" *ngIf="station.isRenting" title="Location possible">
+      <img src="assets/fleche-haut.png" *ngIf="station.isReturning" title="Retour possible">
+    </p>
+    <p>Localisation : ({{station.lat}}, {{station.lon}})</p>
+    <p>Capacité : {{station.capacity}} ({{station.numBikesAvailable}} disponibles
+      dont {{station.numMechanicalBikesAvailable}} mécaniques et {{station.numEbikeBikesAvailable}} électriques)</p>
+    <p>Mise à jour : {{station.lastReported * 1000 | date:'medium'}}</p>
+  </ng-container>
+  <ng-container *ngIf="c.error as error">
+    <p>{{error.message}}</p>
+  </ng-container>
+</ng-container>
