@@ -5,6 +5,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { AppComponent } from './app.component';
 import { VelibModule } from "./velib/velib.module";
 import {LoggingInterceptor} from "./interceptors/logging.interceptor";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {LoggingInterceptor} from "./interceptors/logging.interceptor";
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     HttpClientModule,
     VelibModule
   ],
