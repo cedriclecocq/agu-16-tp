@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Station} from "../station.type";
-import {HttpClient} from "@angular/common/http";
-import {combineLatest, map, Observable} from "rxjs";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {combineLatest, map, Observable, throwError} from "rxjs";
 import {StationsApi} from "./stations-api";
 import {StatusApi} from "./status-api";
 
@@ -59,5 +59,14 @@ export class VelibService {
       "isRenting": true,
       "lastReported": 1699548492
     };
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.status === 0) {
+      console.error('client-side error: ${error.error}');
+    } else {
+      console.error( `backend error code ${error.status}, message: ${error.error}`);
+    }
+    return throwError(() => new Error('message utilisateur'));
   }
 }
