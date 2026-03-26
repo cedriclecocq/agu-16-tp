@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'liste', component: VelibComponent, title: 'Liste des stations Velib'},
   { path: 'detail/:id', component: DetailComponent, title: 'Détail de la station Velib' },
   { path: '', redirectTo: 'liste', pathMatch: 'full' },
+  { path: 'autolib', loadChildren: () => import('./autolib/autolib.module').then(m => m.AutolibModule) }
 ];
 
 @NgModule({
