@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { VelibModule } from "./velib/velib.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { VelibModule } from "./velib/velib.module";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     VelibModule
   ],
   providers: [],
