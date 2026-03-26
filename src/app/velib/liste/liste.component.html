@@ -19,5 +19,8 @@
     <td *ngIf="station.capacity > 0">
       {{station.numBikesAvailable / station.capacity | percent:'1.2-2'}}
     </td>
+    <td>
+      <a [routerLink]="['/detail', station.id]">Fiche station</a>
+    </td>
   </tr>
 </table>

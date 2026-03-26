@@ -6,6 +6,7 @@ import { RechercheComponent } from './recherche/recherche.component';
 import { ListeComponent } from './liste/liste.component';
 import { DetailComponent } from './detail/detail.component';
 import { VelibService } from "./services/velib.service";
+import {RouterModule} from "@angular/router";
 
 
 
@@ -24,7 +25,8 @@ import { VelibService } from "./services/velib.service";
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ]
 })
 export class VelibModule { }
